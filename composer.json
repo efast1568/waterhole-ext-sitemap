@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "waterhole/core": "^0.8.0"
+    "waterhole/core": "^0.7.0 || ^0.8.0"
   },
   "autoload": {
     "psr-4": {
