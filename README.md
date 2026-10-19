@@ -42,10 +42,15 @@ php artisan cache:clear
 
 Once installed, the sitemap is automatically available at:
 
--   `https://your-domain.com/sitemap` (Index)
--   `https://your-domain.com/sitemap/posts`
+-   `https://your-domain.com/sitemap` (Sitemap index)
+-   `https://your-domain.com/sitemap/pages` (Home page and pages)
 -   `https://your-domain.com/sitemap/channels`
+-   `https://your-domain.com/sitemap/posts`
 -   `https://your-domain.com/sitemap/users`
+
+Posts and users are split into sitemaps of 5,000 URLs each (`/sitemap/posts/2`, `/sitemap/posts/3`, ...). All of them are listed in the sitemap index.
+
+Only content that guests can see and that is listed in your forum structure is included. Private channels, unlisted channels and pages, unapproved posts and deleted posts are left out. Users are included only if they have at least one public post.
 
 Robots.txt
 To ensure search engines find your sitemap, add the following line to your `public/robots.txt`:
@@ -69,7 +74,7 @@ php artisan cache:clear
 
 ### 📄 License
 
-- Open-sourced under the [MIT License](https://github.com/flectar/flarum-ext-turnstile/blob/main/LICENSE).
+- Open-sourced under the [MIT License](https://github.com/flectar/waterhole-ext-sitemap/blob/main/LICENSE).
 
 ---
 
@@ -77,6 +82,6 @@ php artisan cache:clear
 
 - [Flectar](https://flectar.com/)
 - [Packagist - flectar/waterhole-sitemap](https://packagist.org/packages/flectar/waterhole-sitemap)
-- [GitHub Repo](https://github.com/flectar/waterhole-sitemap)
+- [GitHub Repo](https://github.com/flectar/waterhole-ext-sitemap)
 - [Composer](https://getcomposer.org/)
 - [Waterhole](https://waterhole.dev/)
