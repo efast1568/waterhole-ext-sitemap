@@ -15,19 +15,29 @@ class SitemapServiceProvider extends ServiceProvider
             "waterhole-sitemap",
         );
 
-        $this->registerRoutes();
+        if (!$this->app->routesAreCached()) {
+            $this->registerRoutes();
+        }
     }
 
     protected function registerRoutes()
     {
-        Route::prefix("sitemap")
-            ->middleware("web")
+        // Sitemaps are public and identical for every visitor, so the routes
+        // deliberately skip the session and authentication middleware.
+        Route::domain(config("waterhole.system.domain"))
+            ->prefix("sitemap")
+            ->name("waterhole-sitemap.")
+            ->controller(SitemapController::class)
             ->group(function () {
-                Route::get("/", [SitemapController::class, "index"]);
-                Route::get("/posts", [SitemapController::class, "posts"]);
-                Route::get("/channels", [SitemapController::class, "channels"]);
-                Route::get("/pages", [SitemapController::class, "pages"]);
-                Route::get("/users", [SitemapController::class, "users"]);
+                Route::get("/", "index")->name("index");
+                Route::get("/pages", "pages")->name("pages");
+                Route::get("/channels", "channels")->name("channels");
+                Route::get("/posts/{page?}", "posts")
+                    ->where("page", "[1-9][0-9]{0,8}")
+                    ->name("posts");
+                Route::get("/users/{page?}", "users")
+                    ->where("page", "[1-9][0-9]{0,8}")
+                    ->name("users");
             });
     }
 }
